@@ -1017,19 +1017,19 @@ def get_expression_inner(field, exp_list):
 			"Specular": get_expression(node.inputs['IOR'], exp_list),
 		}
 
-		# only add opacity if transmission != 0
-		transmission_field = node.inputs['Alpha']
-		add_transmission = False
-		if len(transmission_field.links) != 0:
-			add_transmission = False
+		# only add opacity if Alpha != 1
+		#transmission_field = node.inputs['Alpha']
+		#add_transmission = False
+		#if len(transmission_field.links) != 1:
+		#	add_transmission = True
 		#elif transmission_field.default_value != 0:
 			#add_transmission = False
-		if add_transmission:
-			n = Node("OneMinus")
-			exp_transmission = get_expression(node.inputs['Alpha'], exp_list)
-			n.push(Node("0", exp_transmission))
-			exp_opacity = {"expression": exp_list.push(n)}
-			bsdf['Opacity'] = exp_opacity
+		#if add_transmission:
+			#n = Node("OneMinus")
+		#	exp_transmission = get_expression(node.inputs['Alpha'], exp_list)
+			#n.push(Node("0", exp_transmission))
+			#exp_opacity = {"expression": exp_list.push(n)}
+			#bsdf['Opacity'] = exp_opacity
 	if node.type == 'EEVEE_SPECULAR':
 		log.warn("EEVEE_SPECULAR incomplete implementation")
 		bsdf = {
