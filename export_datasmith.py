@@ -1014,11 +1014,11 @@ def get_expression_inner(field, exp_list):
 			"BaseColor": get_expression(node.inputs['Base Color'], exp_list),
 			"Metallic": get_expression(node.inputs['Metallic'], exp_list),
 			"Roughness": get_expression(node.inputs['Roughness'], exp_list),
-			"Specular": get_expression(node.inputs['Specular'], exp_list),
+			"Specular": get_expression(node.inputs['IOR'], exp_list),
 		}
 
 		# only add opacity if transmission != 0
-		transmission_field = node.inputs['Transmission']
+		transmission_field = node.inputs['Alpha']
 		add_transmission = False
 		if len(transmission_field.links) != 0:
 			add_transmission = True
@@ -1026,7 +1026,7 @@ def get_expression_inner(field, exp_list):
 			add_transmission = True
 		if add_transmission:
 			n = Node("OneMinus")
-			exp_transmission = get_expression(node.inputs['Transmission'], exp_list)
+			exp_transmission = get_expression(node.inputs['Alpha'], exp_list)
 			n.push(Node("0", exp_transmission))
 			exp_opacity = {"expression": exp_list.push(n)}
 			bsdf['Opacity'] = exp_opacity
