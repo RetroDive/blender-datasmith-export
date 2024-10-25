@@ -1021,9 +1021,9 @@ def get_expression_inner(field, exp_list):
 		transmission_field = node.inputs['Alpha']
 		add_transmission = False
 		if len(transmission_field.links) != 0:
-			add_transmission = True
-		elif transmission_field.default_value != 0:
-			add_transmission = True
+			add_transmission = False
+		#elif transmission_field.default_value != 0:
+			#add_transmission = False
 		if add_transmission:
 			n = Node("OneMinus")
 			exp_transmission = get_expression(node.inputs['Alpha'], exp_list)
